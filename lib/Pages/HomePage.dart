@@ -1,35 +1,18 @@
-import 'package:flutter/material.dart';
 
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
+import 'package:dainmart_sample/Model/CartItems.dart';
 class HomePage extends StatelessWidget {
    HomePage({super.key});
 
-  final List<Map<String,dynamic>> products = [
-    {
-      'imgPath' : 'assets/images/img1.png',
-      'title':'image 1 is here',
-      'price':'\$299',
-      'rating':'4.0',
-      'ratingCount':'20',
-      'isLocked':true,
-    },
-    {
-      'imgPath' : 'assets/images/img2.png',
-      'title':'image 2 is here',
-      'price':'\$300',
-      'rating':'4.5',
-      'ratingCount':'30',
-      'isLocked':false,
-    },
-    {
-      'imgPath' : 'assets/images/img3.png',
-      'title':'image 3 is here',
-      'price':'\$150',
-      'rating':'3.5',
-      'ratingCount':'15',
-      'isLocked':true,
-    },
+   final List<String> bannerImages = [
+     'assets/images/img5.webp',
+     'assets/images/img4.jpg',
+     'assets/images/img6.png',
+     'assets/images/img7.png',
+   ];
 
-  ];
+  
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +22,8 @@ class HomePage extends StatelessWidget {
       drawerEnableOpenDragGesture: true,
 
       appBar: AppBar(
-
+        backgroundColor: Colors.transparent,
+        // shape: OutlineInputBorder(),
         title: Image.asset('assets/images/logo.png',width: 150,height: 60,),
         actions: [
           IconButton(
@@ -61,111 +45,167 @@ class HomePage extends StatelessWidget {
 
             },
           ),
+          SizedBox(width: 10,)
         ],
       ),
       drawer: const Drawer(
         child: Text('Drawer'),
       ),
 
-      body:SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.32,
-              width: MediaQuery.of(context).size.width * 1,
-              child: PageView(
-                scrollDirection: Axis.horizontal,
-                children: const <Widget>[
-                  Center(
-                    child: Image(image: AssetImage('assets/images/img5.webp'),width: 500,height: 240,fit: BoxFit.contain,),
+            SizedBox(height: 5),
+            CarouselSlider(
+              options: CarouselOptions(
+                height: MediaQuery.of(context).size.width < 600
+                    ? MediaQuery.of(context).size.height * 0.25
+                    : MediaQuery.of(context).size.height * 0.45,
+                autoPlay: true,
+                enlargeCenterPage: true,
+                aspectRatio: 16 / 9,
+                enableInfiniteScroll: true,
+                autoPlayInterval: Duration(seconds: 3),
+              ),
+              items: bannerImages.map((imagePath) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.symmetric(horizontal: 5.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                          image: AssetImage(imagePath),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              }).toList(),
+            ),
+            SizedBox(height: 10),
+            GridView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.all(8.0),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: MediaQuery.of(context).size.width < 600 ? 2 : 4,
+                crossAxisSpacing: 8.0,
+                mainAxisSpacing: 8.0,
+              ),
+              itemCount: CartItems().product.length,
+              itemBuilder: (context, index) {
+                return ProductCard(index: index);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+class ProductCard extends StatelessWidget {
+  final int index;
+
+
+  const ProductCard({super.key, required this.index});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailPage(product: CartItems().product[index].title),
+          ),
+        );
+      },
+      child: Card(
+
+        elevation: 4.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+                  image: DecorationImage(
+                    image: AssetImage(CartItems().product[index].imgPath),
+                    fit: BoxFit.scaleDown,
                   ),
-        
-                  Center(
-                    child: Image(image: AssetImage('assets/images/img4.jpg'),width: 500,height: 240,fit: BoxFit.contain,),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    CartItems().product[index].title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-        
-                  Center(
-                    child: Image(image: AssetImage('assets/images/img6.png'),width: 500,height: 240,fit: BoxFit.contain,),
-                  ),
+                  SizedBox(height: 4),
+                  Text('₹${CartItems().product[index].price.toString()}', style: TextStyle(color: Colors.green)),
                 ],
               ),
             ),
-            const SizedBox(height: 10,),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.15,
-              width: 490,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.blueGrey,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                 Container(
-                   height: 70,
-                   width: 70,
-                   decoration: BoxDecoration(
-                     borderRadius: BorderRadius.circular(15),
-                   ),
-                   child: const Image(image: AssetImage('assets/images/img1.png'),isAntiAlias: true),
-                 ),
-                  Container(
-                    height: 70,
-                    width: 70,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
-                    ),
-                    child: const Image(image: AssetImage('assets/images/img2.png'),fit: BoxFit.fitWidth),
-                  ),
-                  Container(
-                    height: 70,
-                    width: 70,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
 
-                    ),
-                    child: const Image(image: AssetImage('assets/images/img3.png'),fit: BoxFit.cover),
-        
-                  )
-                ],
-              ),
+class ProductDetailPage extends StatelessWidget {
+  final String product;
+
+  const ProductDetailPage({super.key, required this.product});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('$product Details'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.shopping_cart),
+            onPressed: () {
+              // Navigate to cart page (to be implemented)
+            },
+          )
+        ],
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              '$product',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-        
-            const SizedBox(height: 10,),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.55,
-              width: MediaQuery.of(context).size.width * 0.97,
-              decoration: BoxDecoration(
-                color: Colors.blueGrey,
-                borderRadius: BorderRadiusDirectional.circular(10),
-              ),
-              child: ListView(
-                scrollDirection: Axis.vertical,
-                children: [
-                  Container(
-                    height: 100,
-                    color: Colors.red,
-                    child: Text(products.first['title']),
-                  ),
-                  Container(
-                    height: 100,
-                    color: Colors.blue,
-                  ),
-                  Container(
-                    height: 100,
-                    color: Colors.grey,
-                  ),Container(
-                    height: 100,
-                    color: Colors.orange,
-                  ),
-                  Container(
-                    height: 100,
-                    color: Colors.yellow,
-                  )
-                ],
-              ),
-            )
+            SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Added $product to cart!')),
+                );
+              },
+              child: Text('Add to Cart'),
+            ),
           ],
         ),
       ),
