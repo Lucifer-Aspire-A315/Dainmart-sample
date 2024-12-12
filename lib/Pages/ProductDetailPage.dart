@@ -121,7 +121,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         title: Text('${widget.product} Details'),
         actions: [
           IconButton(
-            icon: Icon(Icons.shopping_cart_outlined),
+            icon: const Icon(Icons.shopping_cart_outlined),
             iconSize: 28,
             tooltip: 'Open shopping cart',
 
@@ -129,7 +129,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               // Navigate to cart page (to be implemented)
             },
           ),
-          SizedBox(width: 10,)
+          const SizedBox(width: 10,)
         ],
       ),
       body: Padding(
@@ -144,32 +144,32 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 fit: BoxFit.cover,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               widget.product,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               widget.desc,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               'Price: ₹${widget.productPrice}',
-              style: TextStyle(fontSize: 18, color: Colors.green),
+              style: const TextStyle(fontSize: 18, color: Colors.green),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               'Ratings: ${widget.rating}',
-              style: TextStyle(fontSize: 18, color: Colors.black),
+              style: const TextStyle(fontSize: 18, color: Colors.black),
             ),
-            SizedBox(height: 16),
-            Text(
+            const SizedBox(height: 16),
+            const Text(
               'Select Size:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Wrap(
               spacing: 8.0,
               children: sizes.map((size) {
@@ -184,7 +184,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 );
               }).toList(),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -194,7 +194,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ),
                   );
                 },
-                child: Text('Add to Cart'),
+                child: const Text('Add to Cart'),
               ),
             ),
           ],
