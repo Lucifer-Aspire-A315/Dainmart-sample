@@ -1,5 +1,7 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dainmart_sample/Cards/Category.dart';
+import 'package:dainmart_sample/Pages/CartPage.dart';
 import 'package:flutter/material.dart';
 import 'package:dainmart_sample/Model/CartItems.dart';
 
@@ -14,19 +16,27 @@ class HomePage extends StatelessWidget {
      'assets/images/img7.png',
    ];
 
-  
+   final List<Map<String, String>> categories = [
+     {'name': 'Men', 'image': 'assets/images/img6.png'},
+     {'name': 'Women', 'image': 'assets/images/img2.png'},
+     {'name': 'Kid', 'image': 'assets/images/img7.png'},
+     {'name': 'Accessories', 'image': 'assets/images/img1.png'},
+     {'name': 'Child', 'image': 'assets/images/img7.png'},
+
+   ];
 
   @override
   Widget build(BuildContext context) {
-
 
     return Scaffold(
       drawerEnableOpenDragGesture: true,
 
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        // backgroundColor: Colors.transparent,
+        shape: OutlineInputBorder(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15),bottomRight: Radius.circular(15)),borderSide: BorderSide.none),
         // shape: OutlineInputBorder(),
         title: Image.asset('assets/images/logo.png',width: 150,height: 60,),
+        titleSpacing: 50,
         actions: [
           IconButton(
             icon: const Icon(Icons.shopping_cart_outlined),
@@ -35,7 +45,7 @@ class HomePage extends StatelessWidget {
 
             onPressed: () {
               // handle the press
-
+              Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
             },
           ),
           const SizedBox(width: 5,),
@@ -52,9 +62,9 @@ class HomePage extends StatelessWidget {
           SizedBox(width: 10,)
         ],
       ),
-      drawer: const Drawer(
-        child: Text('Drawer'),
-      ),
+      // drawer: const Drawer(
+      //   child: Text('Drawer'),
+      // ),
 
       body: SingleChildScrollView(
         child: Column(
@@ -90,6 +100,57 @@ class HomePage extends StatelessWidget {
               }).toList(),
             ),
             SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Categories',
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,),
+                  ),
+                  SizedBox(height: 10),
+                  SingleChildScrollView(
+                    // scrollDirection: Axis.horizontal,
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: categories.map((category) {
+                          return GestureDetector(
+                            onTap: () {
+                              // Navigate to category-specific page
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> Category(category: category['name']!)));
+                            },
+                            child: Column(
+                                children: [
+                                  Container(
+                                    width: 70,
+                                    height: 70,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+
+                                      image: DecorationImage(
+                                        image: AssetImage(category['image']!),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: 8),
+                                  Text(category['name']!,
+                                      style: TextStyle(fontSize: 14)),
+                                ],
+                              ),
+                            );
+                        }).toList(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 5,),
             GridView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
