@@ -105,6 +105,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     'title':widget.product,
                     'price':widget.productPrice,
                     'image':widget.productImg,
+                    'size':selectedSize,
                     'quantity':1,
                   });
                   ScaffoldMessenger.of(context).showSnackBar(

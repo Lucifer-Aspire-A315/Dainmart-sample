@@ -34,13 +34,13 @@ class Category extends StatelessWidget {
         ],
       ),
       body: filterCategory.isEmpty
-          ? Center(
+          ? const Center(
         child: Text('No products available in this category.'),
       )
           :GridView.builder(
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.all(8.0),
+        physics: const NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.all(8.0),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: MediaQuery.of(context).size.width < 600 ? 2 : 4,
           crossAxisSpacing: 8.0,

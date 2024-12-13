@@ -2,6 +2,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dainmart_sample/Cards/Category.dart';
 import 'package:dainmart_sample/Pages/CartPage.dart';
+import 'package:dainmart_sample/Pages/SignUpPage.dart';
 import 'package:flutter/material.dart';
 import 'package:dainmart_sample/Model/CartItems.dart';
 
@@ -33,7 +34,7 @@ class HomePage extends StatelessWidget {
 
       appBar: AppBar(
         // backgroundColor: Colors.transparent,
-        shape: OutlineInputBorder(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15),bottomRight: Radius.circular(15)),borderSide: BorderSide.none),
+        shape: const OutlineInputBorder(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15),bottomRight: Radius.circular(15)),borderSide: BorderSide.none),
         // shape: OutlineInputBorder(),
         title: Image.asset('assets/images/logo.png',width: 150,height: 60,),
         titleSpacing: 50,
@@ -56,10 +57,11 @@ class HomePage extends StatelessWidget {
 
             onPressed: () {
               // handle the press
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> SignUpPage()));
 
             },
           ),
-          SizedBox(width: 10,)
+          const SizedBox(width: 10,)
         ],
       ),
       // drawer: const Drawer(
@@ -69,7 +71,7 @@ class HomePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             CarouselSlider(
               options: CarouselOptions(
                 height: MediaQuery.of(context).size.width < 600
@@ -79,14 +81,14 @@ class HomePage extends StatelessWidget {
                 enlargeCenterPage: true,
                 aspectRatio: 16 / 9,
                 enableInfiniteScroll: true,
-                autoPlayInterval: Duration(seconds: 3),
+                autoPlayInterval: const Duration(seconds: 3),
               ),
               items: bannerImages.map((imagePath) {
                 return Builder(
                   builder: (BuildContext context) {
                     return Container(
                       width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.symmetric(horizontal: 5.0),
+                      margin: const EdgeInsets.symmetric(horizontal: 5.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
@@ -99,17 +101,17 @@ class HomePage extends StatelessWidget {
                 );
               }).toList(),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'Categories',
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   SingleChildScrollView(
                     // scrollDirection: Axis.horizontal,
                     child: SizedBox(
@@ -137,9 +139,9 @@ class HomePage extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(height: 8),
+                                  const SizedBox(height: 8),
                                   Text(category['name']!,
-                                      style: TextStyle(fontSize: 14)),
+                                      style: const TextStyle(fontSize: 14)),
                                 ],
                               ),
                             );
@@ -150,11 +152,11 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 5,),
+            const SizedBox(height: 5,),
             GridView.builder(
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.all(8.0),
+              physics: const NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.all(8.0),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: MediaQuery.of(context).size.width < 600 ? 2 : 4,
                 crossAxisSpacing: 8.0,

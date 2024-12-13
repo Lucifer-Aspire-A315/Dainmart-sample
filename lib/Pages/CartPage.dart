@@ -48,7 +48,7 @@ class _CartPageState extends State<CartPage> {
       body: cartManager.cartItems.isEmpty
           ? const Center(
         child: Text(
-          'Your cart is empty.',
+          'Add Something To Your Cart.',
           style: TextStyle(fontSize: 18),
         ),
       )
@@ -81,7 +81,7 @@ class _CartPageState extends State<CartPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              item['title'],
+                              'Product : ${item['title']}',
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -89,7 +89,15 @@ class _CartPageState extends State<CartPage> {
                             ),
                             const SizedBox(height: 5),
                             Text(
-                              '₹${item['price'].toString()}',
+                              'Size : ${item['size']}',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                              'Price : ₹${item['price'].toString()}',
                               style: const TextStyle(
                                 fontSize: 16,
                                 color: Colors.green,
