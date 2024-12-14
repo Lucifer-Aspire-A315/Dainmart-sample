@@ -39,7 +39,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
             onPressed: () {
               // Navigate to cart page (to be implemented)
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> CartPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> const CartPage()));
             },
           ),
           const SizedBox(width: 10,)

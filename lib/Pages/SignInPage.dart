@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
-import 'SignInPage.dart';
+import 'ForgotPasswordPage.dart';
+import 'SignUpPage.dart';
 
-class SignUpPage extends StatelessWidget {
-  SignUpPage({super.key});
+class SignInPage extends StatelessWidget {
+  SignInPage({super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         shape: const OutlineInputBorder(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15),bottomRight: Radius.circular(15)),borderSide: BorderSide.none),
-        title: const Text('Sign Up',style: TextStyle(color: Colors.white),),
+        title: const Text('Sign In',style: TextStyle(color: Colors.white),),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -26,7 +26,7 @@ class SignUpPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const Text(
-                  'Create an Account',
+                  'Welcome Back!',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
@@ -57,52 +57,46 @@ class SignUpPage extends StatelessWidget {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';
-                    } else if (value.length < 6) {
-                      return 'Password must be at least 6 characters';
                     }
                     return null;
                   },
                 ),
-                const SizedBox(height: 16),
-                TextFormField(
-                  controller: _confirmPasswordController,
-                  decoration: const InputDecoration(
-                    labelText: 'Confirm Password',
-                    border: OutlineInputBorder(),
+                const SizedBox(height: 10),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ForgotPasswordPage()),
+                      );
+                    },
+                    child: const Text('Forgot Password?'),
                   ),
-                  obscureText: true,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please confirm your password';
-                    } else if (value != _passwordController.text) {
-                      return 'Passwords do not match';
-                    }
-                    return null;
-                  },
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState?.validate() == true) {
-                      // Handle sign-up logic here
-                      Navigator.pop(context, 'Sign Up Successful');
+                      // Handle sign-in logic here
+                      Navigator.pop(context, 'Sign In Successful');
                     }
                   },
-                  child: const Text('Sign Up'),
+                  child: const Text('Sign In'),
                 ),
                 const SizedBox(height: 10,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text('Already have an account? '),
+                    const Text('Don’t have an account? '),
                     TextButton(
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => SignInPage()),
+                          MaterialPageRoute(builder: (context) => SignUpPage()),
                         );
                       },
-                      child: const Text('Sign In'),
+                      child: const Text('Sign Up'),
                     ),
                   ],
                 ),
@@ -117,15 +111,14 @@ class SignUpPage extends StatelessWidget {
 
 // import 'package:flutter/material.dart';
 //
-// import 'SignInPage.dart';
+// import 'SignUpPage.dart';
 //
-// class SignUpPage extends StatelessWidget {
-//   SignUpPage({super.key});
+// class SignInPage extends StatelessWidget {
+//   SignInPage({super.key});
 //
 //   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 //   final TextEditingController _emailController = TextEditingController();
 //   final TextEditingController _passwordController = TextEditingController();
-//   final TextEditingController _confirmPasswordController = TextEditingController();
 //
 //   @override
 //   Widget build(BuildContext context) {
@@ -133,7 +126,7 @@ class SignUpPage extends StatelessWidget {
 //       appBar: AppBar(
 //         shape: const OutlineInputBorder(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15),bottomRight: Radius.circular(15)),borderSide: BorderSide.none),
 //
-//         title: const Text('Sign Up',style: const TextStyle(color: Colors.white),),
+//         title: const Text('Sign In',style: TextStyle(color: Colors.white),),
 //       ),
 //       body: Padding(
 //         padding: const EdgeInsets.all(16.0),
@@ -144,7 +137,7 @@ class SignUpPage extends StatelessWidget {
 //               crossAxisAlignment: CrossAxisAlignment.stretch,
 //               children: [
 //                 const Text(
-//                   'Create an Account',
+//                   'Welcome Back!',
 //                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
 //                   textAlign: TextAlign.center,
 //                 ),
@@ -175,25 +168,6 @@ class SignUpPage extends StatelessWidget {
 //                   validator: (value) {
 //                     if (value == null || value.isEmpty) {
 //                       return 'Please enter your password';
-//                     } else if (value.length < 6) {
-//                       return 'Password must be at least 6 characters';
-//                     }
-//                     return null;
-//                   },
-//                 ),
-//                 const SizedBox(height: 16),
-//                 TextFormField(
-//                   controller: _confirmPasswordController,
-//                   decoration: const InputDecoration(
-//                     labelText: 'Confirm Password',
-//                     border: OutlineInputBorder(),
-//                   ),
-//                   obscureText: true,
-//                   validator: (value) {
-//                     if (value == null || value.isEmpty) {
-//                       return 'Please confirm your password';
-//                     } else if (value != _passwordController.text) {
-//                       return 'Passwords do not match';
 //                     }
 //                     return null;
 //                   },
@@ -202,25 +176,25 @@ class SignUpPage extends StatelessWidget {
 //                 ElevatedButton(
 //                   onPressed: () {
 //                     if (_formKey.currentState?.validate() == true) {
-//                       // Handle sign-up logic here
-//                       Navigator.pop(context, 'Sign Up Successful');
+//                       // Handle sign-in logic here
+//                       Navigator.pop(context, 'Sign In Successful');
 //                     }
 //                   },
-//                   child: const Text('Sign Up'),
+//                   child: const Text('Sign In'),
 //                 ),
 //                 const SizedBox(height: 10,),
 //                 Row(
 //                   mainAxisAlignment: MainAxisAlignment.center,
 //                   children: [
-//                     const Text('Already have an account? '),
+//                     const Text('Don’t have an account? '),
 //                     TextButton(
 //                       onPressed: () {
 //                         Navigator.push(
 //                           context,
-//                           MaterialPageRoute(builder: (context) => SignInPage()),
+//                           MaterialPageRoute(builder: (context) => SignUpPage()),
 //                         );
 //                       },
-//                       child: const Text('Sign In'),
+//                       child: const Text('Sign Up'),
 //                     ),
 //                   ],
 //                 ),

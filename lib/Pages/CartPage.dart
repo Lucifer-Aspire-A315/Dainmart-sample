@@ -32,6 +32,8 @@ class CartManager {
 }
 
 class CartPage extends StatefulWidget {
+  const CartPage({super.key});
+
   @override
   _CartPageState createState() => _CartPageState();
 }
@@ -43,6 +45,7 @@ class _CartPageState extends State<CartPage> {
 
     return Scaffold(
       appBar: AppBar(
+        shape: const OutlineInputBorder(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15),bottomRight: Radius.circular(15)),borderSide: BorderSide.none),
         title: const Text('My Cart',style: TextStyle(color: Colors.white),),
       ),
       body: cartManager.cartItems.isEmpty

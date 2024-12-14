@@ -15,19 +15,19 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primaryColor: Color(0xFF4169E1), // Royal Blue
+        primaryColor: const Color(0xFF4169E1), // Royal Blue
         // accentColor: Color(0xFFFF6F61), // Coral
         // backgroundColor: Color(0xFFF8F9FA), // Off-white
-        scaffoldBackgroundColor: Color(0x6A6DD6F3), // Same as background
+        scaffoldBackgroundColor: const Color(0xFFFFFFFF), // Same as background
         // textTheme: TextTheme(
         //   headline6: TextStyle(color: Color(0xFF333333)), // Dark Grey for headers
         //   bodyText2: TextStyle(color: Color(0xFF666666)), // Medium Grey for body text
         // ),
-        buttonTheme: ButtonThemeData(
+        buttonTheme: const ButtonThemeData(
           buttonColor: Color(0xFF4169E1), // Royal Blue
           textTheme: ButtonTextTheme.primary,
         ),
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           color: Color(0xFF436581), // Royal Blue
           iconTheme: IconThemeData(color: Colors.white), // White icons
         ),

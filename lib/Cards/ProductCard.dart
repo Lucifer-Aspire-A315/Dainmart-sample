@@ -22,7 +22,7 @@ class ProductCard extends StatelessWidget {
         );
       },
       child: Card(
-        color: const Color(0x6A01151B),
+        color: const Color(0xFFFFFFFF),
         elevation: 4.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),

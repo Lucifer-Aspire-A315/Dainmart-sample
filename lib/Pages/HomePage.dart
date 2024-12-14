@@ -2,7 +2,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dainmart_sample/Cards/Category.dart';
 import 'package:dainmart_sample/Pages/CartPage.dart';
-import 'package:dainmart_sample/Pages/SignUpPage.dart';
+import 'package:dainmart_sample/Pages/UserProfilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:dainmart_sample/Model/CartItems.dart';
 
@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
 
             onPressed: () {
               // handle the press
-              Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const CartPage()));
             },
           ),
           const SizedBox(width: 5,),
@@ -57,7 +57,7 @@ class HomePage extends StatelessWidget {
 
             onPressed: () {
               // handle the press
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> SignUpPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> const UserProfilePage()));
 
             },
           ),
@@ -68,53 +68,52 @@ class HomePage extends StatelessWidget {
       //   child: Text('Drawer'),
       // ),
 
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 5),
-            CarouselSlider(
-              options: CarouselOptions(
-                height: MediaQuery.of(context).size.width < 600
-                    ? MediaQuery.of(context).size.height * 0.25
-                    : MediaQuery.of(context).size.height * 0.45,
-                autoPlay: true,
-                enlargeCenterPage: true,
-                aspectRatio: 16 / 9,
-                enableInfiniteScroll: true,
-                autoPlayInterval: const Duration(seconds: 3),
-              ),
-              items: bannerImages.map((imagePath) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                          image: AssetImage(imagePath),
-                          fit: BoxFit.cover,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 5),
+              CarouselSlider(
+                options: CarouselOptions(
+                  height: MediaQuery.of(context).size.width < 600
+                      ? MediaQuery.of(context).size.height * 0.25
+                      : MediaQuery.of(context).size.height * 0.45,
+                  autoPlay: true,
+                  enlargeCenterPage: true,
+                  aspectRatio: 16 / 9,
+                  enableInfiniteScroll: true,
+                  autoPlayInterval: const Duration(seconds: 3),
+                ),
+                items: bannerImages.map((imagePath) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                            image: AssetImage(imagePath),
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Text(
-                    'Categories',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,),
-                  ),
-                  const SizedBox(height: 10),
-                  SingleChildScrollView(
-                    // scrollDirection: Axis.horizontal,
-                    child: SizedBox(
+                      );
+                    },
+                  );
+                }).toList(),
+              ),
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Categories',
+                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,),
+                    ),
+                    const SizedBox(height: 10),
+                    SizedBox(
                       width: MediaQuery.of(context).size.width,
 
                       child: Row(
@@ -148,26 +147,46 @@ class HomePage extends StatelessWidget {
                         }).toList(),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 5,),
-            GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.all(8.0),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: MediaQuery.of(context).size.width < 600 ? 2 : 4,
-                crossAxisSpacing: 8.0,
-                mainAxisSpacing: 8.0,
-              ),
-              itemCount: CartItems().product.length,
-              itemBuilder: (context, index) {
-                return ProductCard(index: index);
-              },
-            ),
-          ],
+              const SizedBox(height: 5,),
+              /*GridView.builder(
+                shrinkWrap: true,
+                physics: ClampingScrollPhysics(),
+                padding: const EdgeInsets.all(8.0),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: MediaQuery.of(context).size.width < 600 ? 2 : 4,
+                  crossAxisSpacing: 8.0,
+                  mainAxisSpacing: 8.0,
+                  childAspectRatio: 0.75
+                ),
+                itemCount: CartItems().product.length,
+                itemBuilder: (context, index) {
+                  return ProductCard(index: index);
+                },
+              ),*/
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const ClampingScrollPhysics(), // Avoid unnecessary scrolling
+                padding: const EdgeInsets.all(8.0),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: MediaQuery.of(context).size.width < 600 ? 2 : 4,
+                  crossAxisSpacing: 8.0,
+                  mainAxisSpacing: 8.0,
+                  childAspectRatio: 0.75,
+                ),
+                itemCount: CartItems().product.length,
+                itemBuilder: (context, index) {
+                  return ClipRRect(
+                    borderRadius: BorderRadius.circular(20), // Rounded corners for smooth rendering
+                    child: ProductCard(index: index),
+                  );
+                },
+              )
+
+            ],
+          ),
         ),
       ),
     );
