@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dainmart_sample/Cards/Category.dart';
 import 'package:dainmart_sample/Pages/CartPage.dart';
 import 'package:dainmart_sample/Pages/UserProfilePage.dart';
+import 'package:dainmart_sample/Pages/WishListPage.dart';
 import 'package:flutter/material.dart';
 import 'package:dainmart_sample/Model/CartItems.dart';
 
@@ -40,13 +41,24 @@ class HomePage extends StatelessWidget {
         titleSpacing: 50,
         actions: [
           IconButton(
+            icon: const Icon(Icons.star_border_outlined),
+            tooltip: 'Open Wishlist cart',
+            iconSize: 28,
+
+            onPressed: () {
+              // handle the press
+              Navigator.push(context, MaterialPageRoute(builder: (context) => WishlistPage()));
+            },
+          ),
+          const SizedBox(width: 5,),
+          IconButton(
             icon: const Icon(Icons.shopping_cart_outlined),
             tooltip: 'Open shopping cart',
             iconSize: 28,
 
             onPressed: () {
               // handle the press
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const CartPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>  CartPage()));
             },
           ),
           const SizedBox(width: 5,),
@@ -180,7 +192,7 @@ class HomePage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return ClipRRect(
                     borderRadius: BorderRadius.circular(20), // Rounded corners for smooth rendering
-                    child: ProductCard(index: index),
+                    child: ProductCard(index: index, product: CartItems().product[index].toMap(),),
                   );
                 },
               )

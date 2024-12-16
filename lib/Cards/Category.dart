@@ -1,3 +1,4 @@
+import 'package:dainmart_sample/Pages/WishListPage.dart';
 import 'package:flutter/material.dart';
 
 import '../Model/CartItems.dart';
@@ -20,6 +21,17 @@ class Category extends StatelessWidget {
 
         title: Text('${category}s Category',style: const TextStyle(color: Colors.white),),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.star_border_outlined),
+            iconSize: 28,
+            tooltip: 'Open WishList',
+
+            onPressed: () {
+              // Navigate to cart page (to be implemented)
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> const WishlistPage()));
+            },
+          ),
+          const SizedBox(width: 10,),
           IconButton(
             icon: const Icon(Icons.shopping_cart_outlined),
             iconSize: 28,
@@ -48,7 +60,7 @@ class Category extends StatelessWidget {
         ),
         itemCount:filterCategory.length,
         itemBuilder: (context, index) {
-          return ProductCard(index: index);
+          return ProductCard(index: index, product: CartItems().product[index].toMap(),);
           // return Card(
           //   color: const Color(0x6A01151B),
           //   elevation: 4.0,

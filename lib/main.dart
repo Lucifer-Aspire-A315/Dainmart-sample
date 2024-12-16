@@ -1,8 +1,18 @@
+import 'package:dainmart_sample/Model/CartItems.dart';
+import 'package:dainmart_sample/Pages/CartPage.dart';
 import 'package:dainmart_sample/Pages/HomePage.dart';
+import 'package:dainmart_sample/Pages/UserProfilePage.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(providers: [
+      ChangeNotifierProvider(create: (_) => CartItems()),
+    ],
+    child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -38,6 +48,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home:HomePage(),
+      routes: {
+        '/Cart' : (_) => CartPage(),
+        '/Profile': (_) => UserProfilePage()
+      },
     );
   }
 }
